@@ -1,8 +1,208 @@
 
-#Pyramid
+"""#no of sentences that start with p
+
+n=int(input("Enter how many sequence of sentences:"))
+l=[]
+count=0
+for i in range(n):
+    x=input("enter the sentence one by one:")
+    l.append(x)
+for i in l:
+    if i[0].lower()=='p':
+        count+=1
+print(count)"""
+
+'''#pattern * 5
+
+for i in range(6):
+    for j in range(1,i+1):
+        print('*',end="")
+    print()'''
+
+'''#square series
+
+n=int(input("enter how many sequence"))
+for i in range(1,n+1):
+    print(i**2)'''
+
+'''#occurance of a letter
+
+x=input("enter the word/sentence")
+d={}
+for i in x:
+    if i not in d:
+        d[i]=1
+    elif i in d:
+        d[i]+=1
+for k,v in d.items():
+    print(k,"=", v)'''
+
+
+'''#perfect square or not
+
+n=int(input("Enter the number to be checked:"))
+x=n**0.5
+if x.is_integer():
+    print("yes, it is aperfect square number")
+else:
+    print("No,it is not a perfect square number")'''
+
+
+'''#sort and return middle elements
+
+n=int(input("enter the no of sequences:"))
+l=[]
+for i in range(n):
+    a=int(input("enter the element one by one:"))
+    l.append(a)
+l_n=[]
+for i in range(len(l)):
+      x=min(l)
+      l.remove(x)   
+      l_n.append(x)
+if len(l_n)%2==0:
+   print(l_n[(len(l_n)+1)//2], l_n[(len(l_n)-1)//2])
+else:
+    print(l_n[len(l_n)//2])'''
+
+'''#no of items repeated in array
+
+n=int(input("enter how many elements"))
+l=[]
+for i in range(n):
+    a=int(input("Enter the element on by one"))
+    l.append(a)
+
+d={}
+for i in l:
+    if i not in d:
+        d[i]=1
+    elif i in l:
+        d[i]+=1
+m=max(d.values())
+for k,v in d.items():
+    if v==m:
+        print(k,"  repeated",v,"times")'''
+
+
+'''#sum of numbers divisile by 3/5 from 1 to 100
+sum=0
+for i in range(1,101):
+    if i%3==0 or i%5==0:
+        sum=sum+i
+print(sum)'''
+
+'''#additive sequence
+n=int(input("enter the no of Sequence"))
+l=[]
+for i in range(n):
+    a=int(input("enter the elements one by one"))
+    l.append(a)
+flag=1
+for i in range(len(l)-2):
+    if l[i]+l[i+1]!=l[i+2]:
+        flag=0
+        break
+
+if flag==1:
+    print("Yes, It follows the sequence")
+else:
+    print("No,It does not follow the sequence")'''
+
+'''#Sum of digits
+sum=0
+n=int(input("enter how many sequence of elements"))
+l=[]
+for i in range(n):
+    a=int(input("enter the numbers to be added one  by one:"))
+    l.append(a)
+for i in range(len(l)):
+
+  sum=sum+l[i]
+print(sum)'''
+
+
+'''# Sum of three numbers = target
+
+from itertools import combinations
+
+# Input section
+n = int(input("Enter the number of sequence: "))
+l = []
+
+for i in range(n):
+    a = int(input("Enter the number one by one: "))
+    l.append(a)
+
+t = int(input("Enter the target number: "))
+
+count = 0
+
+flag=0
+for i in range(len(l)):
+   for j in range(i+1,len(l)):
+       for k in range(j+1,len(l)):
+           if l[i]+l[j]+l[k]==t:
+               print(l[i],l[j],l[k])
+               print("these are the combinations ")
+if flag==0:
+    print('no')'''
+
+
+'''#Gp
+
+n = int(input("Enter the number of elements in the sequence: "))
+l = []
+
+for i in range(n):
+    a = int(input("Enter the number one by one: "))
+    l.append(a)
+
+flag = 1  # Assume sequence is GP unless proven otherwise
+
+for i in range(len(l)-2):
+    if(l[i+1]/l[i])!=(l[i+2]/l[i+1]):
+        flag=0
+        break
+if flag==1:
+    print("follows the gp")
+else:
+    print("not follows the gp")'''
+
+'''# square of a number lesser element
+
+n=int(input("Enter the no of sequences"))
+l=[]
+for i in range(n):
+    a=int(input("Enter the number one by one:"))
+    l.append(a)
+    
+for i in range(len(l)):
+      x=min(l)
+      s=x**2
+print(s)'''
+
+'''#Pyramid
 
 pyramid=[[1],[2,4],[3,5,2],[4,8,2,3]]
 total=0
 for i in pyramid:
     total+=max(i)
-print(total)
+print(total)'''
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+    
