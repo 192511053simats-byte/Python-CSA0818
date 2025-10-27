@@ -1,0 +1,8 @@
+
+#Pyramid
+
+pyramid=[[1],[2,4],[3,5,2],[4,8,2,3]]
+total=0
+for i in pyramid:
+    total+=max(i)
+print(total)
