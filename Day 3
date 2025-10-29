@@ -1,0 +1,159 @@
+#Amstrong number
+
+'''num=int(input("Enter the number"))
+sum=0
+temp=num
+while temp>0:
+    digit=temp%10
+    sum+=digit**3
+    temp=temp//10
+if sum==num:
+    print("Amstrong Number")
+else:
+    print("Not a Amstrong number")'''
+
+
+#sum of digits
+'''num=int(input("Enter the number"))
+sum=0
+temp=num
+while temp>0:
+    digit=temp%10
+    sum+=digit
+    temp=temp//10
+print("Sum of digits:",sum)'''
+
+# Perfect Number Check
+
+'''Number = int(input("Enter the number: "))
+sum = 0
+
+for i in range(1, Number):
+    if Number % i == 0:
+        sum += i
+
+if sum == Number:
+    print("%d is a Perfect Number" % Number)
+else:
+    print("%d is not a Perfect Number" % Number)'''
+
+#Factors
+'''x=int(input("Enter the number"))
+y=[]
+print("The Factors of",x,"are:")
+for i in range(1,x):
+    if  x%i==0:
+        y.append(i)
+print(y)
+print("The Number of Factors:",len(y))
+n=int(input("Enter N value"))
+if n>len(y):
+    print("Invalid")
+else:
+    print("First",n,"Factors")
+    for k in range(0,n):
+        print(y[k],end=",")'''
+
+#greatest of 3 numbers
+'''a=int(input("Enter the number"))
+b=int(input("Enter the number"))
+c=int(input("Enter the number"))
+if (a>b) and (a>c):
+    print("The Greatest Number is",a)
+elif (b>a) and (b>c):
+    print("The Greatest Number is",b)
+else:
+     print("The Greatest Number is",c)
+'''
+
+# Fibonacci Series
+
+'''n = int(input("Enter the number of terms: "))
+
+a, b = 0, 1
+
+print("Fibonacci Series:")
+
+for i in range(n):
+    print(a, end=" ")
+    a, b = b, a + b'''
+
+#Palindrome
+
+'''s=input("Enter the String Or Number:")
+rev=s[::-1]
+print("The original string",s)
+print("The Reversed string",rev)
+
+if s==rev:
+    print(s,"is a palindrome")
+else:
+    print(s,"is not a palindrome")'''
+
+#prime or composite
+
+'''n=int(input("Enter the number"))
+if n>1:
+    for i in range(2,n):
+        if n % i==0:
+            print(n,"Is a Composite Number")
+            break
+    
+    else:
+        print(n,"Is a prime Number")
+else:
+    (n,"Is Neither Prime Nor Composite")'''
+
+#LCM and GCD of three numbers
+
+'''def gcd_lcm_3():
+    a=int(input("Enter the number:"))
+    b=int(input("Enter the number:"))
+    c=int(input("Enter the number:"))
+    x,y=a,b
+    while y!=0:
+        x,y=y,x % y
+    gcd_ab=x
+    p,q=gcd_ab,c
+    while q!=0:
+        p,q=p,p % q
+    gcd_abc=p
+    print("Gcd of three Numbers is:",gcd_abc)
+    lcm_ab=a*b//gcd_ab
+    lcm_abc=lcm_ab*c//gcd_abc
+    print("LCM of three Numbers is:",lcm_abc)
+gcd_lcm_3()'''
+
+#Intersecting elements between two lists
+
+'''n=int(input("Eneter the no of sequences"))
+list1=[]
+list2=[]
+newlist=[]
+for i in range(n):
+    a=int(input("Enter the number for list 1:"))
+    list1.append(a)
+for k in range(n):
+    b=int(input("Enter the number for list 2:"))
+    list2.append(b)
+for j in list1:
+    if j in list2:
+        newlist.append(j)
+if len(newlist)==0:
+    print('no intersections found')
+else:
+    print('intersections are',newlist)'''
+
+
+        
+    
+        
+
+
+
+
+
+
+
+
+
