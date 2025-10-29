@@ -1,6 +1,6 @@
-"""#no of sentences that start with p
+#no of sentences that start with p
 
-n=int(input("Enter how many sequence of sentences:"))
+"""n=int(input("Enter how many sequence of sentences:"))
 l=[]
 count=0
 for i in range(n):
@@ -11,16 +11,16 @@ for i in l:
         count+=1
 print(count)"""
 
-'''#pattern * 5
+#pattern * 5
 
-for i in range(6):
+'''for i in range(6):
     for j in range(1,i+1):
         print('*',end="")
     print()'''
 
-'''#square series
+#square series
 
-n=int(input("enter how many sequence"))
+'''n=int(input("enter how many sequence"))
 for i in range(1,n+1):
     print(i**2)'''
 
@@ -37,9 +37,9 @@ for k,v in d.items():
     print(k,"=", v)'''
 
 
-'''#perfect square or not
+#perfect square or not
 
-n=int(input("Enter the number to be checked:"))
+'''n=int(input("Enter the number to be checked:"))
 x=n**0.5
 if x.is_integer():
     print("yes, it is aperfect square number")
@@ -47,9 +47,9 @@ else:
     print("No,it is not a perfect square number")'''
 
 
-'''#sort and return middle elements
+#sort and return middle elements
 
-n=int(input("enter the no of sequences:"))
+'''n=int(input("enter the no of sequences:"))
 l=[]
 for i in range(n):
     a=int(input("enter the element one by one:"))
@@ -64,9 +64,9 @@ if len(l_n)%2==0:
 else:
     print(l_n[len(l_n)//2])'''
 
-'''#no of items repeated in array
+#no of items repeated in array
 
-n=int(input("enter how many elements"))
+'''n=int(input("enter how many elements"))
 l=[]
 for i in range(n):
     a=int(input("Enter the element on by one"))
@@ -84,15 +84,15 @@ for k,v in d.items():
         print(k,"  repeated",v,"times")'''
 
 
-'''#sum of numbers divisile by 3/5 from 1 to 100
-sum=0
+#sum of numbers divisile by 3/5 from 1 to 100
+'''sum=0
 for i in range(1,101):
     if i%3==0 or i%5==0:
         sum=sum+i
 print(sum)'''
 
-'''#additive sequence
-n=int(input("enter the no of Sequence"))
+#additive sequence
+'''n=int(input("enter the no of Sequence"))
 l=[]
 for i in range(n):
     a=int(input("enter the elements one by one"))
@@ -108,8 +108,8 @@ if flag==1:
 else:
     print("No,It does not follow the sequence")'''
 
-'''#Sum of digits
-sum=0
+#Sum of digits
+'''sum=0
 n=int(input("enter how many sequence of elements"))
 l=[]
 for i in range(n):
@@ -121,9 +121,9 @@ for i in range(len(l)):
 print(sum)'''
 
 
-'''# Sum of three numbers = target
+# Sum of three numbers = target
 
-from itertools import combinations
+'''from itertools import combinations
 
 # Input section
 n = int(input("Enter the number of sequence: "))
@@ -148,9 +148,9 @@ if flag==0:
     print('no')'''
 
 
-'''#Gp
+#Gp
 
-n = int(input("Enter the number of elements in the sequence: "))
+'''n = int(input("Enter the number of elements in the sequence: "))
 l = []
 
 for i in range(n):
@@ -168,9 +168,9 @@ if flag==1:
 else:
     print("not follows the gp")'''
 
-'''# square of a number lesser element
+# square of a number lesser element
 
-n=int(input("Enter the no of sequences"))
+'''n=int(input("Enter the no of sequences"))
 l=[]
 for i in range(n):
     a=int(input("Enter the number one by one:"))
@@ -181,18 +181,18 @@ for i in range(len(l)):
       s=x**2
 print(s)'''
 
-'''#Pyramid
+#Pyramid
 
-pyramid=[[1],[2,4],[3,5,2],[4,8,2,3]]
+'''pyramid=[[1],[2,4],[3,5,2],[4,8,2,3]]
 total=0
 for i in pyramid:
     total+=max(i)
 print(total)'''
 
 
-'''# Replacing negative numbers with mean value
+# Replacing negative numbers with mean value
 
-n = int(input("Enter the number of elements: "))
+'''n = int(input("Enter the number of elements: "))
 l = []
 
 for i in range(n):
@@ -211,26 +211,26 @@ for j in range(len(l)):
 print("List after replacing negative numbers:", l)'''
 
 
-'''#number pattern
+#number pattern
 
 
-for i in range(6):
+'''for i in range(6):
     for j in range(1,i+1):
         print(j,end="")
     print()'''
 
 
-'''#pyramid pattern
+#pyramid pattern
 
-n = int(input("Enter number of rows: "))
+'''n = int(input("Enter number of rows: "))
 
 for i in range(1, n + 1):
     print(" " * (n - i),end="")  
     print( "*" * (2 * i - 1))'''
 
-'''#Number Pyramid
+#Number Pyramid
 
-n = int(input("Enter number of rows: "))
+'''n = int(input("Enter number of rows: "))
 
 for i in range(1, n + 1):
     print(" " * (n - i), end="")
@@ -240,14 +240,14 @@ for i in range(1, n + 1):
         print(j, end="")
     print()'''
 
-'''#Inverted Star Pyramid
-n = int(input("Enter number of rows: "))
+#Inverted Star Pyramid
+'''n = int(input("Enter number of rows: "))
 
 for i in range(n, 0, -1):
     print(" " * (n - i) + "*" * (2 * i - 1))'''
 
-'''#Palindrome Check for String
-s = input("Enter a string: ")
+#Palindrome Check for String
+'''s = input("Enter a string: ")
 
 if s == s[::-1]:
     print("It is a palindrome")
