@@ -1,9 +1,20 @@
-#Hallow square
-n=int(input("Enter the rows"))
+#Sum of n numbers
+
+'''def fact(n):
+    if n==0 or n==1:
+        return 1
+    else:
+         return n*fact(n-1)
+
+n=int(input("Enter the number"))
+sum=0
 for i in range(n):
-    for j in range(n):
-        if i==0 or i==n-1 or j==0 or j==n-1:
-            print("*",end="")
-        else:
-            print(" ",end="")
-    print()
+    sum=fact(i)
+print(sum)'''
+
+#Alternative
+'''n=int(input("Enter the number"))
+s=1
+for i in range(1,n+1):
+    s*=i
+print(s)'''
