@@ -48,6 +48,20 @@ for i in l:
     elif i>0:
         b_n+=1
 print("Avg.of negative is:",a/a_n, '\n Avg.of positive numbers is:',b/b_n)'''
+#Alternative method
+
+'''l1=[]
+l2=[]
+while True:
+    n=int(input("Enter the number"))
+    if n==-1:
+        break
+    elif n>0:
+        l1.append(n)
+    elif n<0:
+        l2.append(n)
+print("Avg of +ve",sum(l1)/len(l1))
+print("Avg of -ve",sum(l2)/len(l2))'''
 
 
 #pattern +
