@@ -1,0 +1,26 @@
+#taximeter calculator
+
+def taximeter():
+    n=int(input("Enter the list:"))
+    l=[]
+    for i in range(n):
+        taxi_no=int(input("Taxi no"))
+        name=input("name")
+        kilometer=float(input("kilomters"))
+        l.append([taxi_no,name,kilometer])
+    return l
+
+def calculator():
+    l=taximeter()
+    for i in l:
+        if i[2]<=1:
+            print("Taxi no",i[0],"name",i[1],"kilometer",i[2],"Billing amount 25")
+        elif i[2]>1 and i[2]<6:
+            print("Taxi no",i[0],"name",i[1],"kilometer",i[2],"Billing amount 10")
+        elif i[2]>6 and i[2]<12:
+             print("Taxi no",i[0],"name",i[1],"kilometer",i[2],"Billing amount 15")
+        elif i[2]>12 and i[2]<18:
+            print("Taxi no",i[0],"name",i[1],"kilometer",i[2],"Billing amount 20")
+        elif i[2]>18:
+             print("Taxi no",i[0],"name",i[1],"kilometer",i[2],"Billing amount 25")
+calculator()
