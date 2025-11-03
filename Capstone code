@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import threading
 import os
@@ -18,13 +18,14 @@ CREATE TABLE IF NOT EXISTS goals (
     target_amount REAL NOT NULL,
     current_amount REAL DEFAULT 0,
     reminder_date TEXT,
-    reminder_time TEXT
+    reminder_time TEXT,
+    end_date TEXT
 )
 ''')
 conn.commit()
 
 # Add missing columns for older DB versions
-for col in ["reminder_date", "reminder_time"]:
+for col in ["reminder_date", "reminder_time", "end_date"]:
     try:
         cursor.execute(f"ALTER TABLE goals ADD COLUMN {col} TEXT")
         conn.commit()
@@ -34,7 +35,6 @@ for col in ["reminder_date", "reminder_time"]:
 
 # ---------------- HELPER FUNCTIONS ----------------
 def ensure_statement_folder():
-    """Ensure local folder exists for saved statements."""
     folder = os.path.join(os.getcwd(), "Statements")
     if not os.path.exists(folder):
         os.makedirs(folder)
@@ -42,17 +42,13 @@ def ensure_statement_folder():
 
 
 def generate_pdf_report():
-    """Generate a PDF report and save it to local storage."""
     cursor.execute("SELECT * FROM goals")
     goals = cursor.fetchall()
     if not goals:
         print("No goals to include in report.\n")
         return None
 
-    # Ensure the Statements folder exists
     folder = ensure_statement_folder()
-
-    # Create a timestamped filename for statement history
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
     filename = f"Statement_{timestamp}.pdf"
     file_path = os.path.join(folder, filename)
@@ -61,7 +57,7 @@ def generate_pdf_report():
     width, height = letter
 
     c.setFont("Helvetica-Bold", 18)
-    c.drawString(180, height - 50, "💰 Saving Goal Tracker Statement")
+    c.drawString(150, height - 50, "💰 Saving Goal Tracker Statement")
 
     c.setFont("Helvetica", 12)
     y = height - 100
@@ -69,17 +65,20 @@ def generate_pdf_report():
     total_saved = 0
 
     for g in goals:
-        id, name, target, current, r_date, r_time = g
+        id, name, target, current, r_date, r_time, end_date = g
         percent = (current / target * 100) if target > 0 else 0
         c.drawString(50, y, f"Goal: {name}")
         y -= 20
-        c.drawString(70, y, f"Target: ${target:.2f} | Saved: ${current:.2f} ({percent:.1f}%)")
+        c.drawString(70, y, f"Target: ₹{target:.2f} | Saved: ₹{current:.2f} ({percent:.1f}%)")
         y -= 20
         if r_date:
             c.drawString(70, y, f"Reminder Date: {r_date}")
             y -= 20
         if r_time:
             c.drawString(70, y, f"Reminder Time: {r_time}")
+            y -= 20
+        if end_date:
+            c.drawString(70, y, f"End Date: {end_date}")
             y -= 30
 
         total_target += target
@@ -89,15 +88,14 @@ def generate_pdf_report():
             c.showPage()
             y = height - 100
 
-    # Add summary at bottom
     c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, 100, f"Total Target: ${total_target:.2f}")
-    c.drawString(50, 80, f"Total Saved: ${total_saved:.2f}")
-    c.drawString(50, 60, f"Overall Progress: {(total_saved / total_target * 100):.1f}%")
+    c.drawString(50, 100, f"Total Target: ₹{total_target:.2f}")
+    c.drawString(50, 80, f"Total Saved: ₹{total_saved:.2f}")
+    if total_target > 0:
+        c.drawString(50, 60, f"Overall Progress: {(total_saved / total_target * 100):.1f}%")
 
     c.setFont("Helvetica-Oblique", 10)
     c.drawString(50, 40, f"Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
     c.save()
 
     print(f"📄 Report generated: {file_path}")
@@ -106,17 +104,15 @@ def generate_pdf_report():
 
 
 def open_pdf(file_path):
-    """Open the PDF file automatically."""
-    if os.name == 'nt':  # Windows
+    if os.name == 'nt':  
         os.startfile(file_path)
-    elif os.name == 'posix':  # macOS/Linux
+    elif os.name == 'posix':  
         os.system(f"open '{file_path}'")
     else:
         print(f"Please open manually: {file_path}")
 
 
 def send_notification(title, message):
-    """Show a desktop notification."""
     notification.notify(
         title=title,
         message=message,
@@ -127,17 +123,17 @@ def send_notification(title, message):
 # ---------------- GOAL FUNCTIONS ----------------
 def add_goal():
     name = input("Enter goal name: ")
-    target = float(input("Enter target amount: "))
-
+    target = float(input("Enter target amount (INR): "))
     reminder_date = input("Enter reminder date (YYYY-MM-DD): ").strip()
     reminder_time = input("Enter reminder time (HH:MM 24hr): ").strip()
+    end_date = input("Enter target completion date (YYYY-MM-DD): ").strip()
 
     cursor.execute(
-        "INSERT INTO goals (name, target_amount, reminder_date, reminder_time) VALUES (?, ?, ?, ?)",
-        (name, target, reminder_date, reminder_time)
+        "INSERT INTO goals (name, target_amount, reminder_date, reminder_time, end_date) VALUES (?, ?, ?, ?, ?)",
+        (name, target, reminder_date, reminder_time, end_date)
     )
     conn.commit()
-    print("✅ Goal added successfully with reminder!\n")
+    print("✅ Goal added successfully with reminder and end date!\n")
 
 
 def view_goals():
@@ -148,25 +144,27 @@ def view_goals():
         return
 
     print("\nYour Saving Goals:")
-    print("-" * 60)
+    print("-" * 70)
     for g in goals:
-        id, name, target, current, r_date, r_time = g
+        id, name, target, current, r_date, r_time, end_date = g
         percent = (current / target * 100) if target > 0 else 0
         print(f"ID: {id}")
         print(f"Goal: {name}")
-        print(f"Target: ${target:.2f}")
-        print(f"Saved: ${current:.2f} ({percent:.1f}%)")
+        print(f"Target: ₹{target:.2f}")
+        print(f"Saved: ₹{current:.2f} ({percent:.1f}%)")
         if r_date:
             print(f"Reminder Date: {r_date}")
         if r_time:
             print(f"Reminder Time: {r_time}")
-        print("-" * 60)
+        if end_date:
+            print(f"End Date: {end_date}")
+        print("-" * 70)
     print()
 
 
 def update_goal():
     goal_id = input("Enter goal ID to update: ")
-    add_amount = float(input("Enter amount to add: "))
+    add_amount = float(input("Enter amount to add (INR): "))
     cursor.execute("SELECT current_amount FROM goals WHERE id = ?", (goal_id,))
     goal = cursor.fetchone()
 
@@ -186,9 +184,49 @@ def delete_goal():
     print("🗑 Goal deleted.\n")
 
 
+# ---------------- SMART SAVING SUGGESTION ----------------
+def smart_saving_suggestion():
+    """Suggest daily saving amounts to meet target by end date."""
+    cursor.execute("SELECT name, target_amount, current_amount, end_date FROM goals")
+    goals = cursor.fetchall()
+
+    if not goals:
+        print("No goals available for suggestion.\n")
+        return
+
+    print("\n💡 Smart Saving Suggestions:")
+    print("-" * 70)
+    today = datetime.now().date()
+
+    for g in goals:
+        name, target, current, end_date = g
+        if not end_date:
+            print(f"Goal '{name}' has no end date — skipping.")
+            continue
+
+        try:
+            end = datetime.strptime(end_date, "%Y-%m-%d").date()
+        except ValueError:
+            print(f"⚠️ Invalid end date for '{name}' — skipping.")
+            continue
+
+        remaining_days = (end - today).days
+        remaining_amount = target - current
+
+        if remaining_days <= 0:
+            print(f"⏰ '{name}' deadline has passed or is today.")
+        elif remaining_amount <= 0:
+            print(f"✅ '{name}' goal already achieved!")
+        else:
+            daily = remaining_amount / remaining_days
+            weekly = daily * 7
+            print(f"➡️ For '{name}', save around ₹{daily:.2f} per day or ₹{weekly:.2f} per week to reach your goal by {end_date}.")
+
+    print("-" * 70 + "\n")
+
+
 # ---------------- REMINDER LOGIC ----------------
 def check_reminders():
-    """Check reminders every minute and auto-open PDF."""
     now = datetime.now()
     today = now.date().isoformat()
     current_time = now.strftime("%H:%M")
@@ -201,18 +239,13 @@ def check_reminders():
         if r_date == today and r_time == current_time:
             send_notification("💰 Saving Reminder", f"Time to save for '{name}'! Opening progress report...")
             print(f"🔔 Reminder triggered for '{name}' at {r_time}")
-
-            # Wait a few seconds to simulate “click”
             time.sleep(5)
-
-            # Generate and auto-open PDF report + save local statement
             pdf_file = generate_pdf_report()
             if pdf_file:
                 open_pdf(pdf_file)
 
 
 def reminder_loop():
-    """Run in background to check reminders every minute."""
     while True:
         check_reminders()
         time.sleep(60)
@@ -220,9 +253,8 @@ def reminder_loop():
 
 # ---------------- MAIN APP ----------------
 def main():
-    print("=== 💰 Saving Goal Tracker (Auto PDF + Local Statement) ===")
+    print("=== 💰 Saving Goal Tracker (with Smart Suggestion Feature) ===")
 
-    # Start background reminder thread
     reminder_thread = threading.Thread(target=reminder_loop, daemon=True)
     reminder_thread.start()
 
@@ -233,7 +265,8 @@ def main():
         print("3️⃣  Update goal progress")
         print("4️⃣  Delete goal")
         print("5️⃣  Generate & Save progress PDF manually")
-        print("6️⃣  Exit")
+        print("6️⃣  Smart Saving Suggestion")  
+        print("7️⃣  Exit")  
 
         choice = input("Enter your choice: ")
 
@@ -249,7 +282,9 @@ def main():
             pdf = generate_pdf_report()
             if pdf:
                 open_pdf(pdf)
-        elif choice == '6':
+        elif choice == '6':  
+            smart_saving_suggestion()
+        elif choice == '7': 
             print("Goodbye! 👋")
             break
         else:
