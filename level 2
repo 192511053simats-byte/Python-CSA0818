@@ -45,3 +45,37 @@ for i in range(len(x)):
 
 for r in z:
     print(r[0],r[1])'''
+''' #profit find
+def max_profit(prices):
+    n = len(prices)
+    if n == 0:
+        return 0
+
+    # Helper: profit from one transaction
+    def one_transaction_profit(prices):
+        min_price = prices[0]
+        max_profit = 0
+        for p in prices:
+            min_price = min(min_price, p)
+            max_profit = max(max_profit, p - min_price)
+        return max_profit
+
+    max_total = 0
+    # Try splitting the array into two parts
+    for i in range(n):
+        # First part: from start to i
+        profit1 = one_transaction_profit(prices[:i])
+        # Second part: from i to end
+        profit2 = one_transaction_profit(prices[i:])
+        # Combine both
+        max_total = max(max_total, profit1 + profit2)
+
+    return max_total
+
+
+# 🔹 Example tests
+print(max_profit([7, 1, 5, 3, 6, 4]))          # 7
+print(max_profit([7, 6, 4, 3, 1]))             # 0
+print(max_profit([10, 22, 5, 75, 65, 80]))     # 87
+print(max_profit([2, 30, 15, 10, 8, 25, 80]))  # 100
+print(max_profit([5, 25, 3, 10, 7, 9]))        # 27'''
