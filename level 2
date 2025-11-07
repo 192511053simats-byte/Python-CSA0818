@@ -1,0 +1,47 @@
+''' #  matrix multiplication 
+x=[
+    [1,1,1],
+    [2,2,2],
+    [3,3,3]
+    ]
+
+y=[
+    [ 1,1,1],
+    [2,2,2],
+    [3,3,3]
+    ]
+z=[
+    [1,1,1],
+    [2,2,2],
+    [3,3,3]
+    ]
+for i in range(len(x)):
+    for j in range(len(y[0])):
+        z[i][j]=0
+        for k in range(len(y)):
+            z[i][j]+=x[i][k]*y[k][j]
+        z[i][j]*=6
+for r in z:
+    print(*r)'''
+
+'''#matrix multiplication
+x=[
+    [1,2],
+    [5,3]
+    ]
+
+y=[
+    [ 2,3],
+    [4,1]
+    ]
+z=[
+    [ 0,0],
+    [0,0]
+    ]
+for i in range(len(x)):
+    for j in range(len(y[0])):
+        for k in range(len(y)):
+            z[i][j]+=x[i][k]*y[k][j]
+
+for r in z:
+    print(r[0],r[1])'''
