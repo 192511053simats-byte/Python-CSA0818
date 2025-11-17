@@ -567,11 +567,11 @@ int main()
 	
 	if(*p>*q)
 	{
-		printf("a is graeter");
+		printf("a is greater");
 	}
 	else
 	{
-		printf("b is graeter");
+		printf("b is greater");
 	}
 }
 
@@ -595,6 +595,49 @@ int main()
 	printf(" The length of the given string %s %d",str,len);
 }
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+22.	Write a program in C to compute the sum of all elements in an array using pointers.  
+        Test Data :
+         Input the number of elements to store in the array (max 10) : 5
+         Input 5 number of elements in the array :
+          element - 1 : 2
+          element - 2 : 3
+            element - 3 : 4
+            element - 4 : 5
+            element - 5 : 6
+  	Expected Output :
+            The sum of array is : 20 
+ Test cases:
+1. A = 11, B = 11
+2. A = 20, B = 10
+3. A = 0, B = 0
+4. A = -5, B = 5
+5. A = 7, B = -12
+Ans:
+#include <stdio.h>
+int main()
+{
+	int arr[50],i,n,a,sum=0;
+	int *p=&n;
+	int *ptr;
+	
+	printf("Enter the sequence");
+	scanf("%d",p);
+	
+	for(i=0;i<=n;i++)
+	{
+		printf("Enter the element");
+		scanf("%d",&arr[i]);
+	}
+	ptr=arr;
+	
+	for(i=0;i<=n;i++)
+	{
+		sum=sum+*ptr;
+		ptr++;
+	}
+	printf("Sum:%d",sum);
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 23.	Write a program in C to find the square of any number using the function. 
 Test Data :
 Input any number for square : 20
@@ -603,15 +646,17 @@ Expected Output :
 Ans:
 #include <stdio.h>
 #include <math.h>
-int main()
+int square()
 {
-	int a;
-	float square;
+	int a,c;
 	printf("Enter the number");
 	scanf("%d",&a);
-	
-	square=pow(a,2);
-	printf("The square of is %d %f",a,square);
+	c=sqrt(a);
+	return c;
+}
+int main()
+{
+	printf("Square of a number:%d",square());
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 24.	Write a program in C to check a given number is even or odd using the function.  
@@ -621,20 +666,20 @@ int main()
       The entered number is odd.  
 Ans:
 #include <stdio.h>
-int  main()
+int add()
 {
-	int a;
-	printf("Enter the number");
+	int a,b,c;
+	printf("Enter the a");
 	scanf("%d",&a);
+	printf("Enter the b");
+	scanf("%d",&b);
+	c=a+b;
+	return c;
 	
-	if(a%2==0)
-	{
-		printf("The entered number is Even");
-	}
-	else
-	{
-		printf("The entered number is odd");
-	}
+}
+int main()
+{
+  printf("Addition:%d",add());
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 25.	Write a program in C to get the largest element of an array using the function.  
@@ -673,7 +718,7 @@ int main()
 	printf("The largest element in the array is %d",max);
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-1.	Compile and Execute the C program to calculate Arithmetic Operators Functions such as Pow(x,n), Add(x,n), Sub(x,n), Mul(x,n), Div(x,n), where x and n are the two operands.
+26.	Compile and Execute the C program to calculate Arithmetic Operators Functions such as Pow(x,n), Add(x,n), Sub(x,n), Mul(x,n), Div(x,n), where x and n are the two operands.
 Get the input and choice from the user.
 Sample Input:
 X = 2
@@ -878,3 +923,63 @@ int main()
    
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+30.	Write a C Program to Calculate Total and Percentage marks of a student using structure. 
+Input: 
+Enter RollNo,: 12
+ Name :  rama 
+ three sub marks 30 40 50
+
+ Output: 
+rollno=12 
+Name=rama 
+m1=30 m2=40 m3=50 total=120 per=40.000000 
+
+Test Case
+
+24, AA, 77,65,75
+22, BB, 56,62,50
+23,CC. 42,45,38
+25, Annie 55,65,74
+26, joy. 85,84,87
+Ans:
+#include <stdio.h>
+#include <string.h>
+
+struct student {
+    int RollNo;
+    char Name[50];
+    int submarks;
+};
+
+int main() {
+    int n, i;
+    printf("Enter the number of students: ");
+    scanf("%d", &n);
+
+    struct student s[n];
+
+    // Input student details
+    for(i = 0; i < n; i++) {
+        printf("Enter RollNo, Name, Marks for student %d: ", i+1);
+        scanf("%d %s %d", &s[i].RollNo, s[i].Name, &s[i].submarks);
+    }
+
+    // Print student details and sum of digits of marks
+    for(i = 0; i < n; i++) {
+        int sum = 0, temp = s[i].submarks;
+        while(temp != 0) {
+            sum += temp % 10;
+            temp /= 10;
+        }
+
+        printf("\nStudent %d details:\n", i+1);
+        printf("Roll no.: %d\n", s[i].RollNo);
+        printf("Name: %s\n", s[i].Name);
+        printf("Marks: %d\n", s[i].submarks);
+        printf("Sum of digits of marks: %d\n", sum);
+    }
+
+    return 0;
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
