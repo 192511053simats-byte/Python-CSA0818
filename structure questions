@@ -111,35 +111,27 @@ struct Contact {
 };
 
 int main() {
-    struct Contact c[10];
-    int count = 0, choice, i, j;
+    // Predefined contacts
+    struct Contact c[10] = {
+        {"Alice", "1234567890", "alice@example.com"},
+        {"Bob", "9876543210", "bob@example.com"},
+        {"Charlie", "5556667777", "charlie@example.com"}
+    };
+
+    int count = 3; // number of predefined contacts
+    int choice, i, j;
     char sname[30];
 
     while(1) {
         printf("\n--- CONTACT MENU ---\n");
-        printf("1. Add Contact\n");
-        printf("2. Display Contacts\n");
-        printf("3. Search Contact\n");
-        printf("4. Delete Contact\n");
-        printf("5. Exit\n");
+        printf("1. Display Contacts\n");
+        printf("2. Search Contact\n");
+        printf("3. Delete Contact\n");
+        printf("4. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
         if(choice == 1) {
-            printf("\nEnter Name: ");
-            scanf(" %[^\n]", c[count].name);
-
-            printf("Enter Phone: ");
-            scanf("%s", c[count].phone);
-
-            printf("Enter Email: ");
-            scanf("%s", c[count].email);
-
-            count++;
-            printf("Contact Added ✅\n");
-        }
-
-        else if(choice == 2) {
             if(count == 0) {
                 printf("No Contacts Available\n");
             }
@@ -151,7 +143,7 @@ int main() {
             }
         }
 
-        else if(choice == 3) {
+        else if(choice == 2) {
             printf("Enter name to search: ");
             scanf(" %[^\n]", sname);
 
@@ -168,7 +160,7 @@ int main() {
                 printf("Contact Not Found ❌\n");
         }
 
-        else if(choice == 4) {
+        else if(choice == 3) {
             printf("Enter name to delete: ");
             scanf(" %[^\n]", sname);
 
@@ -186,7 +178,7 @@ int main() {
                 printf("Contact Not Found ❌\n");
         }
 
-        else if(choice == 5) {
+        else if(choice == 4) {
             printf("Program Closed ✅\n");
             break;
         }
@@ -195,7 +187,9 @@ int main() {
             printf("Invalid Choice ❌\n");
         }
     }
+
     return 0;
 }
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
